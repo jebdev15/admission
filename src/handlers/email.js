@@ -1,6 +1,5 @@
 const route = import.meta.env.VITE_API_URL;
 export const registerUser = async (email) => {
-  console.log("email", email);
   try {
     const res = await fetch(`${route}/registerUser`, {
       method: "POST",
@@ -14,6 +13,15 @@ export const registerUser = async (email) => {
     return await res.json();
   } catch (error) {
     console.error(error);
-    return { status: 400, msg: `[register]: ${error}` };
+    return { status: 400, msg: `[registerUser]: ${error}` };
+  }
+};
+export const getEntryInfo = async (code) => {
+  try {
+    const res = await fetch(`${route}/getEntryInfo?code=${code}`);
+    return await res.json();
+  } catch (error) {
+    console.error(error);
+    return { status: 400, msg: `[getEntryInfo]: ${error}` };
   }
 };

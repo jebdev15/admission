@@ -1,16 +1,25 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Start, { action as startAction } from "./Start";
-import PersonalPage from "./PersonalPage";
-
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Start />,
-    action: startAction,
+    lazy: async () => {
+      let { action, Component } = await import("./Start");
+      return {
+        Component,
+        action,
+      };
+    },
   },
   {
     path: "/:code",
-    element: <PersonalPage />,
+    lazy: async () => {
+      let { Component, loader, action } = await import("./PersonalPage");
+      return {
+        Component,
+        loader,
+        action,
+      };
+    },
   },
 ]);
 function App() {

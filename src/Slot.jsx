@@ -15,44 +15,72 @@ import {
   MeetingRoom,
   Place,
 } from "@mui/icons-material";
-const Slot = () => {
+import { useParams } from "react-router-dom";
+const Slot = ({ form, slotData }) => {
+  const { code } = useParams();
+  const { lrn, givenName, middleName, lastName } = form;
+  const { slotID, timeSlot, venue, campus } = slotData;
+
+  const picture =
+    form.picture ||
+    `${import.meta.env.VITE_API_URL}/uploads/picture/${code}.png`;
+
   return (
     <>
-      <Typography
-        variant="h6"
-        fontWeight={700}
-        color="primary.main"
-        textAlign="right"
-        sx={{ p: 1, bgcolor: "primary.main", color: "white" }}
+      <Box
+        sx={{
+          p: 1,
+          bgcolor: "primary.main",
+          color: "white",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
       >
-        SLOT SECTION
-      </Typography>
+        <Typography variant="h6">SLOT ID</Typography>
+        <Typography fontWeight={700} variant="h6">
+          {slotID}
+        </Typography>
+      </Box>
+
       <Box sx={{ display: "flex", flexDirection: "column", mt: 1 }}>
         <Box
-          sx={{
+          sx={(theme) => ({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             mx: 5,
             my: 1,
-          }}
+            [theme.breakpoints.down("md")]: {
+              flexDirection: "column",
+            },
+          })}
         >
-          <Box>
+          <Box
+            sx={(theme) => ({
+              [theme.breakpoints.down("md")]: {
+                order: 2,
+                textAlign: "center",
+                mt: 1,
+              },
+            })}
+          >
             <Typography
               variant="h3"
               fontWeight={700}
               color="primary.main"
               textTransform="capitalize"
             >
-              Dela Cruz
+              {lastName}
             </Typography>
             <Typography
               variant="h4"
               fontWeight={500}
               textTransform="capitalize"
             >
-              Juan
+              {`${givenName} ${middleName.charAt(0)}.`}
             </Typography>
+            <Typography>LRN: {lrn}</Typography>
           </Box>
           <Paper sx={{ width: 150, height: "auto", overflow: "hidden" }}>
             <img
@@ -60,7 +88,7 @@ const Slot = () => {
                 width: "100%",
                 height: "auto",
               }}
-              src="https://placehold.co/150x150"
+              src={picture}
             />
           </Paper>
         </Box>
@@ -72,7 +100,7 @@ const Slot = () => {
                 <AccessTime fontSize="large" />
               </Avatar>
               <Typography variant="h5" fontWeight={500}>
-                08:00 AM
+                {timeSlot}
               </Typography>
             </Box>
           </Grid>
@@ -92,7 +120,7 @@ const Slot = () => {
                 <Place fontSize="large" />
               </Avatar>
               <Typography variant="h5" fontWeight={500}>
-                Talisay Campus
+                {`${campus} Campus`}
               </Typography>
             </Box>
           </Grid>
@@ -102,7 +130,7 @@ const Slot = () => {
                 <MeetingRoom fontSize="large" />
               </Avatar>
               <Typography variant="h5" fontWeight={500}>
-                ETG Building
+                {venue}
               </Typography>
             </Box>
           </Grid>

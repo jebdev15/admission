@@ -40,11 +40,11 @@ const Fillup = ({
       ])
     : [];
 
-  //   const complete = Object.keys(form).every((key) => Boolean(form[key]));
-  const complete = true;
+  const complete = Object.keys(form).every((key) => Boolean(form[key]));
+  // const complete = true;
 
   return (
-    <>
+    <Box>
       <Typography
         variant="h6"
         fontWeight={700}
@@ -372,7 +372,7 @@ const Fillup = ({
       >
         Submit
       </Button>
-    </>
+    </Box>
   );
 };
 

@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Button,
   Container,
@@ -8,15 +9,23 @@ import {
   DialogContentText,
   DialogTitle,
   Paper,
-  Select,
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
-import { useParams } from "react-router-dom";
+import {
+  useActionData,
+  useLoaderData,
+  useNavigation,
+  useParams,
+  useSubmit,
+} from "react-router-dom";
 import Fillup from "./Fillup";
 import Slot from "./Slot";
+import { getEntryInfo } from "./handlers/email";
+import { Error } from "@mui/icons-material";
+import { submitEntry } from "./handlers/entry";
 
 const defaultValues = {
   lrn: "",
@@ -32,38 +41,84 @@ const defaultValues = {
   picture: "",
   ID: "",
 };
-const PersonalPage = () => {
+const base64ToImage = (base64String) => {
+  const byteCharacters = atob(base64String.split(",")[1]);
+  const byteArrays = [];
+  for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+    const slice = byteCharacters.slice(offset, offset + 512);
+    const byteNumbers = new Array(slice.length);
+    for (let i = 0; i < slice.length; i++) {
+      byteNumbers[i] = slice.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    byteArrays.push(byteArray);
+  }
+  return new Blob(byteArrays, { type: "image/png" });
+};
+export const Component = () => {
+  const submit = useSubmit();
+  const loaderData = useLoaderData();
+  const actionData = useActionData();
   const { code } = useParams();
+
+  const [email, setEmail] = useState("");
+  const [confirmEmail, setConfirmEmail] = useState("");
+
   const [form, setForm] = useState(defaultValues);
+  const [slotData, setSlotData] = useState({
+    slotID: "",
+    timeSlot: "",
+    venue: "",
+    campus: "",
+  });
+
   const [showModal, setShowModal] = useState(false);
   const [showSlot, setShowSlot] = useState(false);
-  // const [email, setEmail] = useState("")
-  const [email, setEmail] = useState("a@a.com");
-  const [confirmEmail, setConfirmEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const closeModal = () => setShowModal(false);
+
   const inputHandler = (e) => {
     const { value, name } = e.target;
-    console.log(name, value);
     setForm((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
+
   const dateChangeHandler = (val) =>
     setForm((prev) => ({
       ...prev,
       birthDate: val,
     }));
+
   const submitHandler = (e) => {
     e.preventDefault();
     setShowModal(true);
   };
+
   const confirmEmaiHandler = (e) => setConfirmEmail(e.target.value);
-  const closeModal = () => setShowModal(false);
 
   const proceedHandler = () => {
+    const formData = new FormData();
+    for (const key in form) {
+      if (["picture", "ID"].includes(key)) {
+        const blob = base64ToImage(form[key]);
+        formData.append(key, blob, `${code}.png`);
+      } else {
+        formData.append(key, form[key]);
+      }
+    }
+    formData.append("email", email);
+    setIsSubmitting(true);
+    submit(formData, {
+      action: `/${code}`,
+      method: "POST",
+      encType: "multipart/form-data",
+    });
     closeModal();
-    setShowSlot(true);
   };
+
   const uploadHandler = (e) => {
     const { name, files } = e.target;
     const [file] = files;
@@ -72,7 +127,31 @@ const PersonalPage = () => {
     reader.onloadend = () =>
       setForm((prev) => ({ ...prev, [name]: reader.result }));
   };
+
   const isEmailsMatching = email === confirmEmail;
+
+  useEffect(() => {
+    if (loaderData && Object.keys(loaderData).length) {
+      if (loaderData.msg !== "noEmail") {
+        setEmail(loaderData.email);
+        if (loaderData.msg === "withEntry") {
+          setForm(loaderData.entry);
+          setSlotData(loaderData.entry.slot);
+          setShowSlot(true);
+        }
+      }
+    }
+  }, [loaderData]);
+  useEffect(() => {
+    if (actionData && Object.keys(actionData).length) {
+      if (actionData.msg === "success") {
+        setSlotData(actionData.slot);
+        setShowSlot(true);
+      } else if (actionData.msg === "noSlot") {
+        alert("No slots left in selected exam center!");
+      }
+    }
+  }, [actionData]);
   return (
     <Box
       sx={{
@@ -112,8 +191,31 @@ const PersonalPage = () => {
               sx={{ maxWidth: "750px", width: "100%", p: 3 }}
               component="form"
             >
-              {showSlot ? (
-                <Slot />
+              {!Boolean(email) ? (
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <Avatar sx={{ bgcolor: "error.main", mb: 1 }}>
+                    <Error fontSize="large" />
+                  </Avatar>
+                  <Typography variant="h4" textAlign="center">
+                    <Typography
+                      color="error.main"
+                      fontWeight={700}
+                      sx={{ display: "inline", fontSize: "inherit" }}
+                    >
+                      No email
+                    </Typography>{" "}
+                    associated with this link. Kindly confirm on the email
+                    received.
+                  </Typography>
+                </Box>
+              ) : showSlot ? (
+                <Slot form={form} slotData={slotData} />
               ) : (
                 <Fillup
                   form={form}
@@ -160,4 +262,11 @@ const PersonalPage = () => {
   );
 };
 
-export default PersonalPage;
+export const loader = async ({ params }) => {
+  const { code } = params;
+  return await getEntryInfo(code);
+};
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  return await submitEntry(formData);
+};

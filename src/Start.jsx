@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
-import { useActionData, useSubmit } from "react-router-dom";
+import { useActionData, useNavigate, useSubmit } from "react-router-dom";
 import { registerUser } from "./handlers/email";
 
 const AlertResponse = ({ msg }) => {
@@ -29,7 +29,7 @@ const AlertResponse = ({ msg }) => {
       text = "Email successfully submitted! Please check your email";
       break;
     case "duplicate":
-      text = "Email has already submitted an entry! Please check your email";
+      text = "Email has already submitted an entry!";
       break;
 
     default:
@@ -113,6 +113,8 @@ const DataPrivacyContent = () => (
   </DialogContentText>
 );
 export const Component = () => {
+  const navigate = useNavigate();
+
   const [showPolicy, setShowPolicy] = useState(false);
   const [proceed, setProceed] = useState(false);
   const [submitResponse, setSubmitResponse] = useState({
@@ -144,12 +146,14 @@ export const Component = () => {
 
   useEffect(() => {
     if (actionData && Object.keys(actionData).length) {
-      console.log(actionData);
       setSubmitResponse((prev) => ({
         ...prev,
         msg: actionData.msg,
-        showModal: true,
+        showModal: actionData.msg === "duplicate" ? true : false,
       }));
+      if (actionData.msg === "success") {
+        navigate(`/${actionData.uuid}`);
+      }
       setIsSubmitting(false);
     }
   }, [actionData]);

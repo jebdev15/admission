@@ -16,6 +16,7 @@ import {
   Place,
 } from "@mui/icons-material";
 import { useParams } from "react-router-dom";
+import dayjs from "dayjs";
 const Slot = ({ form, slotData }) => {
   const { code } = useParams();
   const { lrn, givenName, middleName, lastName } = form;
@@ -24,6 +25,37 @@ const Slot = ({ form, slotData }) => {
   const picture =
     form.picture ||
     `${import.meta.env.VITE_API_URL}/uploads/picture/${code}.png`;
+
+  const map = [
+    {
+      key: "ALI",
+      position: 2,
+    },
+    {
+      key: "BIN",
+      position: 2,
+    },
+    {
+      key: "FT",
+      position: 1,
+    },
+    {
+      key: "TAL",
+      position: 2,
+    },
+  ];
+
+  const getDate = (name) => {
+    const result = map.find((item) => name.includes(item.key));
+    if (result) {
+      const date = name.split(result.key)[1].slice(0, 4);
+      const month = date.slice(0, result.position);
+      const day = date.slice(2);
+      return dayjs(`${month}-${day}-2024`).format("MMMM DD, YYYY");
+    }
+  };
+
+  const date = getDate(slotID);
 
   return (
     <>
@@ -110,7 +142,7 @@ const Slot = ({ form, slotData }) => {
                 <CalendarMonth fontSize="large" />
               </Avatar>
               <Typography variant="h5" fontWeight={500}>
-                March 01, 2024
+                {date}
               </Typography>
             </Box>
           </Grid>

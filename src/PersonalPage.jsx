@@ -1,4 +1,5 @@
 import {
+  Alert,
   Avatar,
   Box,
   Button,
@@ -9,6 +10,7 @@ import {
   DialogContentText,
   DialogTitle,
   Paper,
+  Snackbar,
   TextField,
   Typography,
 } from "@mui/material";
@@ -74,9 +76,20 @@ export const Component = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [showSlot, setShowSlot] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [snackBarInfo, setSnackBarInfo] = useState({
+    show: false,
+    message: "",
+  });
 
   const closeModal = () => setShowModal(false);
+
+  const closeSnackBar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setSnackBarInfo((prev) => ({ ...prev, show: false }));
+  };
 
   const inputHandler = (e) => {
     const { value, name } = e.target;
@@ -110,7 +123,6 @@ export const Component = () => {
       }
     }
     formData.append("email", email);
-    setIsSubmitting(true);
     submit(formData, {
       action: `/${code}`,
       method: "POST",
@@ -148,7 +160,17 @@ export const Component = () => {
         setSlotData(actionData.slot);
         setShowSlot(true);
       } else if (actionData.msg === "noSlot") {
-        alert("No slots left in selected exam center!");
+        setSnackBarInfo((prev) => ({
+          ...prev,
+          show: true,
+          message: "No slots left in selected exam center!",
+        }));
+      } else if (actionData.msg === "duplicate") {
+        setSnackBarInfo((prev) => ({
+          ...prev,
+          show: true,
+          message: "Duplicate entry found!",
+        }));
       }
     }
   }, [actionData]);
@@ -258,6 +280,15 @@ export const Component = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <Snackbar
+        open={snackBarInfo.show}
+        autoHideDuration={6000}
+        onClose={closeSnackBar}
+      >
+        <Alert onClose={closeSnackBar} severity="error">
+          {snackBarInfo.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

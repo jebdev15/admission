@@ -1,0 +1,334 @@
+{
+  "campuses": [
+    {
+      "campus": "Talisay",
+      "colleges": [
+        {
+          "college": "CIT",
+          "full": "College of Industrial Technology",
+          "courses": [
+            {
+              "course": "BSIT",
+              "full": "BSIT major in Architechtural Drafting Technology"
+            },
+            {
+              "course": "BSIT",
+              "full": "BSIT major in Automotive Technology"
+            },
+            {
+              "course": "BSIT",
+              "full": "BSIT major in Electrical Technology"
+            },
+            {
+              "course": "BSIT",
+              "full": "BSIT major in Electronics Technology"
+            },
+            {
+              "course": "BSIT",
+              "full": "BSIT major in Fashion and Apparel Technology"
+            },
+            {
+              "course": "BSIT",
+              "full": "BSIT major in Food Trades Technology"
+            },
+            {
+              "course": "BSIT",
+              "full": "BSIT major in Mechanical Technology"
+            },
+            {
+              "course": "BSIT",
+              "full": "BSIT with major in Refrigeration and Air-conditioning Technology"
+            }
+          ]
+        },
+        {
+          "college": "CCS",
+          "full": "College of Computer Studies",
+          "courses": [
+            {
+              "course": "BSIS",
+              "full": "BS in Information Systems"
+            }
+          ]
+        },
+        {
+          "college": "CBMA",
+          "full": "College of Business Management and Accountancy",
+          "courses": [
+            {
+              "course": "BSHM",
+              "full": "BS in Hospitality Management"
+            }
+          ]
+        },
+        {
+          "college": "CAS",
+          "full": "College of Arts and Sciences",
+          "courses": [
+            {
+              "course": "AB-ENG L",
+              "full": "BA in English Language"
+            },
+            {
+              "course": "AB-SOCSCI",
+              "full": "BA in Social Science"
+            },
+            {
+              "course": "BS PSYCH",
+              "full": "BS in Psychology"
+            },
+            {
+              "course": "BPA",
+              "full": "Bachelor of Public Administration"
+            }
+          ]
+        },
+        {
+          "college": "COED",
+          "full": "College of Education",
+          "courses": [
+            {
+              "course": "BECED",
+              "full": "Bachelor of Early Childhood Education"
+            },
+            {
+              "course": "BEED",
+              "full": "Bachelor of Elementary Education"
+            },
+            {
+              "course": "BPED",
+              "full": "Bachelor of Physical Education"
+            },
+            {
+              "course": "BSNED",
+              "full": "Bachelor of Special Needs Education"
+            },
+            {
+              "course": "BSED",
+              "full": "BSED major in English"
+            },
+            {
+              "course": "BSED",
+              "full": "BSED major in Filipino"
+            },
+            {
+              "course": "BSED",
+              "full": "BSED major in Mathematics"
+            },
+            {
+              "course": "BSED",
+              "full": "BSED major in Science"
+            },
+            {
+              "course": "BTLED",
+              "full": "BTLED major in Home Economics"
+            },
+            {
+              "course": "BTLED",
+              "full": "BTLED in Industrial Arts"
+            }
+          ]
+        },
+        {
+          "college": "COE",
+          "full": "College of Engineering",
+          "courses": [
+            {
+              "course": "BSCE",
+              "full": "BS in Civil Engineering"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campus": "Alijis",
+      "colleges": [
+        {
+          "college": "CCS",
+          "full": "College of Computer Studies",
+          "courses": [
+            {
+              "course": "BSIS",
+              "full": "BS in Information Systems"
+            },
+            {
+              "course": "BSIT",
+              "full": "BS in Information Technology"
+            }
+          ]
+        },
+        {
+          "college": "CIT",
+          "full": "College of Industrial Technology",
+          "courses": [
+            {
+              "course": "BSIT",
+              "full": "BSIT major in Architechtural Drafting Technology"
+            },
+            {
+              "course": "BSIT",
+              "full": "BSIT major in Automotive Technology"
+            },
+            {
+              "course": "BSIT",
+              "full": "BSIT major in Computer Technology"
+            },
+            {
+              "course": "BSIT",
+              "full": "BSIT major in Electrical Technology"
+            },
+            {
+              "course": "BSIT",
+              "full": "BSIT major in Electronics Technology"
+            },
+            {
+              "course": "BSIT",
+              "full": "BSIT major in Food Trades Technology"
+            },
+            {
+              "course": "BSIT",
+              "full": "BSIT major in Mechanical Technology"
+            }
+          ]
+        },
+        {
+          "college": "COE",
+          "full": "College of Engineering",
+          "courses": [
+            {
+              "course": "BS CPE",
+              "full": "BS in Computer Engineering"
+            },
+            {
+              "course": "BS ECE",
+              "full": "BS in Electronics Engineering"
+            }
+          ]
+        },
+        {
+          "college": "COED",
+          "full": "College of Education",
+          "courses": [
+            {
+              "course": "BTVTEd",
+              "full": "BTVTEd major in Electrical Technology"
+            },
+            {
+              "course": "BTVTEd",
+              "full": "BTVTEd major in Electronics Technology"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campus": "Binalbagan",
+      "colleges": [
+        {
+          "college": "CBMA",
+          "full": "College of Business Management and Accountancy",
+          "courses": [
+            {
+              "course": "BSBA",
+              "full": "BSBA major in Financial Management"
+            }
+          ]
+        },
+        {
+          "college": "CCS",
+          "full": "College of Computer Studies",
+          "courses": [
+            {
+              "course": "BSIT",
+              "full": "BS in Information Technology"
+            }
+          ]
+        },
+        {
+          "college": "CCJ",
+          "full": "College of Criminal Justice",
+          "courses": [
+            {
+              "course": "BSCRIM",
+              "full": "BS in Criminology"
+            }
+          ]
+        },
+        {
+          "college": "COF",
+          "full": "College of Fisheries",
+          "courses": [
+            {
+              "course": "BSFI",
+              "full": "BS in Fisheries"
+            }
+          ]
+        },
+        {
+          "college": "COED",
+          "full": "College of Education",
+          "courses": [
+            {
+              "course": "BEED",
+              "full": "Bachelor of Elementary Education"
+            },
+            {
+              "course": "BSED",
+              "full": "BSED major in Science"
+            },
+            {
+              "course": "BTLED",
+              "full": "BTLED major in Home Economics"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campus": "Fortune Towne",
+      "colleges": [
+        {
+          "college": "CBMA",
+          "full": "College of Business Management and Accountancy",
+          "courses": [
+            {
+              "course": "BSA",
+              "full": "BS in Accountancy"
+            },
+            {
+              "course": "BSACT",
+              "full": "BS in Accounting Technology"
+            },
+            {
+              "course": "BSBA",
+              "full": "BS in Business Administration with major in Financial Management"
+            },
+            {
+              "course": "BSE",
+              "full": "BS in Entrepreneurship"
+            },
+            {
+              "course": "BSMA",
+              "full": "BS in Management Accounting"
+            },
+            {
+              "course": "BSOA",
+              "full": "BS in Office Administration"
+            }
+          ]
+        },
+        {
+          "college": "CCS",
+          "full": "College of Computer Studies",
+          "courses": [
+            {
+              "course": "BSIS",
+              "full": "BS in Information Systems"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

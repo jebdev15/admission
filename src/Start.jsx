@@ -149,11 +149,9 @@ export const Component = () => {
       setSubmitResponse((prev) => ({
         ...prev,
         msg: actionData.msg,
-        showModal: actionData.msg === "duplicate" ? true : false,
+        showModal: true,
       }));
-      if (actionData.msg === "success") {
-        navigate(`/${actionData.uuid}`);
-      }
+
       setIsSubmitting(false);
     }
   }, [actionData]);

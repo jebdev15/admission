@@ -74,6 +74,7 @@ export const Component = () => {
     campus: "",
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showSlot, setShowSlot] = useState(false);
   const [snackBarInfo, setSnackBarInfo] = useState({
@@ -113,6 +114,7 @@ export const Component = () => {
   const confirmEmaiHandler = (e) => setConfirmEmail(e.target.value);
 
   const proceedHandler = () => {
+    setIsSubmitting(true);
     const formData = new FormData();
     for (const key in form) {
       if (["picture", "ID"].includes(key)) {
@@ -159,20 +161,18 @@ export const Component = () => {
       if (actionData.msg === "success") {
         setSlotData(actionData.slot);
         setShowSlot(true);
-      } else if (actionData.msg === "noSlot") {
+      } else {
         setSnackBarInfo((prev) => ({
           ...prev,
           show: true,
-          message: "No slots left in selected exam center!",
-        }));
-      } else if (actionData.msg === "duplicate") {
-        setSnackBarInfo((prev) => ({
-          ...prev,
-          show: true,
-          message: "Duplicate entry found!",
+          message:
+            actionData.msg === "noSlot"
+              ? "No slots left in selected exam center!"
+              : "Duplicate entry found!",
         }));
       }
     }
+    setIsSubmitting(false);
   }, [actionData]);
   return (
     <Box
@@ -246,6 +246,7 @@ export const Component = () => {
                   submitHandler={submitHandler}
                   uploadHandler={uploadHandler}
                   proceedHandler={proceedHandler}
+                  isSubmitting={isSubmitting}
                 />
               )}
             </Paper>

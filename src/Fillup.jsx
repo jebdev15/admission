@@ -18,7 +18,7 @@ import { Add } from "@mui/icons-material";
 import { MobileDatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import React from "react";
-import { campuses } from "./programs.json";
+import { campuses } from "./programs2024.json";
 
 const Fillup = ({
   form,
@@ -26,6 +26,7 @@ const Fillup = ({
   dateChangeHandler,
   submitHandler,
   uploadHandler,
+  isSubmitting,
 }) => {
   const campus = campuses.find(({ campus }) => campus === form.campus);
   const options = campus
@@ -208,7 +209,7 @@ const Fillup = ({
             Program
           </Typography>
           <br />
-          <FormControl fullWidth>
+          <FormControl fullWidth sx={{ maxWidth: "100%", overflow: "auto" }}>
             <Select
               name="program"
               value={form.program}
@@ -367,10 +368,10 @@ const Fillup = ({
           display: "flex",
           mt: 3,
         }}
-        disabled={!complete}
+        disabled={!complete || isSubmitting}
         onClick={submitHandler}
       >
-        Submit
+        {isSubmitting ? "Submitting..." : "Submit"}
       </Button>
     </Box>
   );

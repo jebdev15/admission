@@ -216,9 +216,15 @@ export const Component = () => {
                   </Typography>
                 </Typography>
                 <Alert severity="info" sx={{ mt: 3 }}>
-                  <Typography variant="body2">
+                  <Typography variant="caption">
                     Please confirm that you have a working email before
                     proceeding
+                  </Typography>
+                </Alert>
+                <Alert severity="info" sx={{ mt: 1 }}>
+                  <Typography variant="caption">
+                    For Desktop/Laptop users: Prepare photo and School ID for
+                    uploading.
                   </Typography>
                 </Alert>
               </CardContent>
@@ -234,7 +240,6 @@ export const Component = () => {
               {proceed && (
                 <Box
                   sx={{
-                    mt: 1,
                     display: "flex",
                     flexDirection: "column",
                     px: 3,

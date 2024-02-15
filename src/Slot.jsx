@@ -49,7 +49,7 @@ const Slot = ({ form, slotData }) => {
     const result = map.find((item) => name.includes(item.key));
     if (result) {
       const date = name.split(result.key)[1].slice(0, 4);
-      const month = date.slice(0, result.position);
+      const month = date.slice(0, 2);
       const day = date.slice(2);
       return dayjs(`${month}-${day}-2024`).format("MMMM DD, YYYY");
     }
@@ -110,7 +110,7 @@ const Slot = ({ form, slotData }) => {
               fontWeight={500}
               textTransform="capitalize"
             >
-              {`${givenName} ${middleName.charAt(0)}.`}
+              {`${givenName} ${middleName ? `${middleName.charAt(0)}.` : ""}`}
             </Typography>
             <Typography>LRN: {lrn}</Typography>
           </Box>
@@ -171,6 +171,10 @@ const Slot = ({ form, slotData }) => {
           <AlertTitle>Slot Secured</AlertTitle>
           You have successfully submitted an entry for admission. Kindly proceed
           on the exam center at the day of the exam.
+        </Alert>
+        <Alert severity="info">
+          <AlertTitle>Note</AlertTitle>
+          To access this data again, click previously received email link.
         </Alert>
       </Box>
     </>

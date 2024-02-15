@@ -41,7 +41,9 @@ const Fillup = ({
       ])
     : [];
 
-  const complete = Object.keys(form).every((key) => Boolean(form[key]));
+  const complete = Object.keys(form).every(
+    (key) => key === "middleName" || Boolean(form[key])
+  );
   // const complete = true;
 
   return (
@@ -103,7 +105,6 @@ const Fillup = ({
             value={form.middleName}
             onChange={inputHandler}
             fullWidth
-            required
           />
         </Grid>
         <Grid item xs={12} md={4}>
@@ -243,7 +244,7 @@ const Fillup = ({
         </Typography>
       </Box>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <Box
             sx={{
               display: "flex",
@@ -254,7 +255,7 @@ const Fillup = ({
             }}
           >
             <Typography fontWeight={700} mb={1}>
-              ID Picture
+              Photo
             </Typography>
             <Box>
               <Input
@@ -263,6 +264,7 @@ const Fillup = ({
                 sx={{ display: "none" }}
                 name="picture"
                 onChange={uploadHandler}
+                accept="image/*"
               />
               <label htmlFor="pictureUpload">
                 {form.picture ? (
@@ -303,58 +305,6 @@ const Fillup = ({
               4. The applicant's photo must be recent (within the past 3
               months).
             </Typography>
-          </Box>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              width: "100%",
-            }}
-          >
-            <Typography fontWeight={700} mb={1}>
-              School ID Picture
-            </Typography>
-            <Box>
-              <Input
-                type="file"
-                id="IDUpload"
-                sx={{ display: "none" }}
-                name="ID"
-                onChange={uploadHandler}
-              />
-              <label htmlFor="IDUpload">
-                {form.ID ? (
-                  <Paper>
-                    <img
-                      width={300}
-                      height={150}
-                      src={form.ID}
-                      style={{ margin: 0 }}
-                    />
-                  </Paper>
-                ) : (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      width: 300,
-                      height: 150,
-                      border: "3px dashed",
-                      borderColor: "primary.main",
-                    }}
-                  >
-                    <Avatar sx={{ bgcolor: "primary.main" }}>
-                      <Add />
-                    </Avatar>
-                  </Box>
-                )}
-              </label>
-            </Box>
           </Box>
         </Grid>
       </Grid>

@@ -19,7 +19,6 @@ import Header from "./components/Header";
 import {
   useActionData,
   useLoaderData,
-  useNavigation,
   useParams,
   useSubmit,
 } from "react-router-dom";
@@ -28,6 +27,7 @@ import Slot from "./Slot";
 import { getEntryInfo } from "./handlers/email";
 import { Error } from "@mui/icons-material";
 import { submitEntry } from "./handlers/entry";
+import Compressor from "compressorjs";
 
 const defaultValues = {
   lrn: "",
@@ -41,7 +41,6 @@ const defaultValues = {
   program: "",
   examCenter: "",
   picture: "",
-  ID: "",
 };
 const base64ToImage = (base64String) => {
   const byteCharacters = atob(base64String.split(",")[1]);
@@ -138,8 +137,14 @@ export const Component = () => {
     const [file] = files;
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onloadend = () =>
-      setForm((prev) => ({ ...prev, [name]: reader.result }));
+    reader.onloadend = () => {
+      new Compressor(reader.result, {
+        quality: 0.6,
+        success(result) {
+          setForm((prev) => ({ ...prev, [name]: result }));
+        },
+      });
+    };
   };
 
   const isEmailsMatching = email === confirmEmail;
@@ -168,7 +173,9 @@ export const Component = () => {
           message:
             actionData.msg === "noSlot"
               ? "No slots left in selected exam center!"
-              : "Duplicate entry found!",
+              : actionData.msg === "duplicate"
+              ? "Duplicate entry found!"
+              : "Sumit failed! Check you internet connection.",
         }));
       }
     }

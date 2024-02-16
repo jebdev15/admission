@@ -15,7 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import Header from "./components/Header";
+import Header from "../Header";
 import {
   useActionData,
   useLoaderData,
@@ -24,9 +24,9 @@ import {
 } from "react-router-dom";
 import Fillup from "./Fillup";
 import Slot from "./Slot";
-import { getEntryInfo } from "./handlers/email";
+import { getEntryInfo } from "../../handlers/email";
 import { Error } from "@mui/icons-material";
-import { submitEntry } from "./handlers/entry";
+import { submitEntry } from "../../handlers/entry";
 import Compressor from "compressorjs";
 
 const defaultValues = {
@@ -118,7 +118,16 @@ export const Component = () => {
     for (const key in form) {
       if (["picture", "ID"].includes(key)) {
         const blob = base64ToImage(form[key]);
-        formData.append(key, blob, `${code}.png`);
+        new Compressor(blob, {
+          quality: 0.3,
+          success(result) {
+            console.log(`${key}: `, result.size);
+            formData.append(key, result, `${code}.png`);
+          },
+          error(err) {
+            console.log(err.message);
+          },
+        });
       } else {
         formData.append(key, form[key]);
       }
@@ -137,14 +146,8 @@ export const Component = () => {
     const [file] = files;
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      new Compressor(reader.result, {
-        quality: 0.6,
-        success(result) {
-          setForm((prev) => ({ ...prev, [name]: result }));
-        },
-      });
-    };
+    reader.onloadend = (result) =>
+      setForm((prev) => ({ ...prev, [name]: reader.result }));
   };
 
   const isEmailsMatching = email === confirmEmail;

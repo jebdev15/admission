@@ -14,13 +14,12 @@ import {
   DialogTitle,
   Divider,
   TextField,
-  Toolbar,
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import Header from "./components/Header";
+import Header from "../Header";
 import { useActionData, useNavigate, useSubmit } from "react-router-dom";
-import { registerUser } from "./handlers/email";
+import { registerUser } from "../../handlers/email";
 
 const AlertResponse = ({ msg }) => {
   let text = "";

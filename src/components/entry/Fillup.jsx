@@ -18,7 +18,7 @@ import { Add } from "@mui/icons-material";
 import { MobileDatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import React from "react";
-import { campuses } from "./programs2024.json";
+import { campuses } from "../../programs2024.json";
 
 const Fillup = ({
   form,

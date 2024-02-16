@@ -122,15 +122,15 @@ export const Component = () => {
       } else {
         formData.append(key, form[key]);
       }
-
-      formData.append("email", email);
-      submit(formData, {
-        action: `/${code}`,
-        method: "POST",
-        encType: "multipart/form-data",
-      });
-      closeModal();
     }
+
+    formData.append("email", email);
+    submit(formData, {
+      action: `/${code}`,
+      method: "POST",
+      encType: "multipart/form-data",
+    });
+    closeModal();
   };
   const uploadHandler = (e) => {
     const { name, files } = e.target;

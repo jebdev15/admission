@@ -116,31 +116,22 @@ export const Component = () => {
     setIsSubmitting(true);
     const formData = new FormData();
     for (const key in form) {
-      if (["picture", "ID"].includes(key)) {
+      if (["picture"].includes(key)) {
         const blob = base64ToImage(form[key]);
-        new Compressor(blob, {
-          quality: 0.3,
-          success(result) {
-            console.log(`${key}: `, result.size);
-            formData.append(key, result, `${code}.png`);
-          },
-          error(err) {
-            console.log(err.message);
-          },
-        });
+        formData.append(key, blob, `${code}.png`);
       } else {
         formData.append(key, form[key]);
       }
-    }
-    formData.append("email", email);
-    submit(formData, {
-      action: `/${code}`,
-      method: "POST",
-      encType: "multipart/form-data",
-    });
-    closeModal();
-  };
 
+      formData.append("email", email);
+      submit(formData, {
+        action: `/${code}`,
+        method: "POST",
+        encType: "multipart/form-data",
+      });
+      closeModal();
+    }
+  };
   const uploadHandler = (e) => {
     const { name, files } = e.target;
     const [file] = files;

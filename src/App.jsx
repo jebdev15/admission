@@ -45,9 +45,10 @@ const router = createBrowserRouter([
       {
         path: "dashboard",
         lazy: async () => {
-          let { Component } = await import("./components/admin/Dashboard");
+          let { Component, loader } = await import("./components/admin/Dashboard");
           return {
             Component,
+            loader,
           };
         },
       },

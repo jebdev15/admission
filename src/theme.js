@@ -13,5 +13,8 @@ export const theme = responsiveFontSizes(
         light: orange[300],
       },
     },
-  })
+  }),
+  {
+    factor: 5,
+  }
 );

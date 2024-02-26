@@ -203,7 +203,7 @@ export const Component = () => {
                   <br />
                   This serves as your entry into the system. 
                   <Typography variant="subtitle2">
-                    By proceeding, you have read the{" "}
+                    By proceeding, you have read and acknowledged the{" "}
                     <Button
                       variant="text"
                       sx={{ m: 0, p: 0, textTransform: "capitalize" }}
@@ -211,7 +211,6 @@ export const Component = () => {
                     >
                       Data Privacy Policy
                     </Button>
-                    .
                   </Typography>
                 </Typography>
                 <Alert severity="info" sx={{ mt: 3 }}>

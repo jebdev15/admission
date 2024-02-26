@@ -31,9 +31,18 @@ const Fillup = ({
   const campus = campuses.find(({ campus }) => campus === form.campus);
   const options = campus
     ? campus.colleges.map(({ college, full, courses }) => [
-        <ListSubheader key={college}>{`${college} - ${full}`}</ListSubheader>,
+        <ListSubheader
+          sx={{
+            textAlign: "center",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            color: "primary.main",
+          }}
+          key={college}
+        >{`${college} - ${full}`}</ListSubheader>,
         courses.map(({ course, full: fullCourseName }, i) => (
           <MenuItem
+            sx={{ whiteSpace: "normal" }}
             key={`${course}${i}`}
             value={fullCourseName}
           >{`${course} - ${fullCourseName}`}</MenuItem>

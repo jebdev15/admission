@@ -43,11 +43,15 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "dashboard",
+        path: ":campus",
         lazy: async () => {
-          let { Component } = await import("./components/admin/Dashboard");
+          let { Component, loader, action } = await import(
+            "./components/admin/Dashboard"
+          );
           return {
             Component,
+            loader,
+            action,
           };
         },
       },

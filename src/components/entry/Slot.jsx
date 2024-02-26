@@ -11,6 +11,7 @@ import {
 import { Box } from "@mui/system";
 import {
   AccessTime,
+  BusinessCenter,
   CalendarMonth,
   MeetingRoom,
   Place,
@@ -167,6 +168,74 @@ const Slot = ({ form, slotData }) => {
             </Box>
           </Grid>
         </Grid>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            color: "primary.main",
+            mb: 1,
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <BusinessCenter />
+            <Typography variant="h6" sx={{ ml: 1 }}>
+              What to bring
+            </Typography>
+          </Box>
+          <Grid container sx={{ p: 3 }} spacing={3}>
+            <Grid item xs={6} md={4} sx={{ display: "flex" }}>
+              <Avatar
+                sx={{ width: 25, height: 25, bgcolor: "primary.main", mr: 1 }}
+              >
+                1
+              </Avatar>{" "}
+              <Typography variant="subtitle2">1 Long Brown Envelope</Typography>
+            </Grid>
+            <Grid item xs={6} md={4} sx={{ display: "flex" }}>
+              <Avatar
+                sx={{ width: 25, height: 25, bgcolor: "primary.main", mr: 1 }}
+              >
+                2
+              </Avatar>{" "}
+              <Typography variant="subtitle2">2 pcs 2x2 ID picture</Typography>
+            </Grid>
+            <Grid item xs={6} md={4} sx={{ display: "flex" }}>
+              <Avatar
+                sx={{ width: 25, height: 25, bgcolor: "primary.main", mr: 1 }}
+              >
+                3
+              </Avatar>{" "}
+              <Typography variant="subtitle2">1 Pencil (Monggol 2)</Typography>
+            </Grid>
+            <Grid item xs={6} md={4} sx={{ display: "flex" }}>
+              <Avatar
+                sx={{ width: 25, height: 25, bgcolor: "primary.main", mr: 1 }}
+              >
+                4
+              </Avatar>{" "}
+              <Typography variant="subtitle2">1 ballpen</Typography>
+            </Grid>
+            <Grid item xs={6} md={4} sx={{ display: "flex" }}>
+              <Avatar
+                sx={{ width: 25, height: 25, bgcolor: "primary.main", mr: 1 }}
+              >
+                5
+              </Avatar>{" "}
+              <Typography variant="subtitle2">1 paste</Typography>
+            </Grid>
+            <Grid item xs={6} md={4} sx={{ display: "flex" }}>
+              <Avatar
+                sx={{ width: 25, height: 25, bgcolor: "primary.main", mr: 1 }}
+              >
+                6
+              </Avatar>{" "}
+              <Typography variant="subtitle2">
+                Screenshot or Printed Copy of Registration Receipt
+              </Typography>
+            </Grid>
+          </Grid>
+        </Box>
+
         <Alert severity="success">
           <AlertTitle>Slot Secured</AlertTitle>
           You have successfully submitted an entry for admission. Kindly proceed

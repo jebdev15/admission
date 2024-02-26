@@ -9,10 +9,9 @@ export const Component = () => {
   const actionData = useActionData();
   useEffect(() => {
     if (actionData) {
-      console.log(actionData);
       if (actionData.status === 200) {
         campus = actionData.data.campus;
-        navigate("/admin/dashboard");
+        navigate("/admin/" + campus);
       } else {
         alert(actionData.data.message);
       }
@@ -49,7 +48,7 @@ export const Component = () => {
               height: "100%",
             }}
           >
-            <Outlet context={campus} />
+            <Outlet />
           </Box>
         </Container>
       </Box>

@@ -120,6 +120,7 @@ export const Component = () => {
     showModal: false,
     msg: "",
   });
+  const [quotaModal, setQuotaModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const submit = useSubmit();
   const actionData = useActionData();
@@ -129,18 +130,21 @@ export const Component = () => {
     setIsSubmitting(true);
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email");
-    submit(
-      { email },
-      {
-        action: "/",
-        method: "post",
-        encType: "application/json",
-      }
-    );
+    setQuotaModal(true);
+    setIsSubmitting(false);
+    // submit(
+    //   { email },
+    //   {
+    //     action: "/",
+    //     method: "post",
+    //     encType: "application/json",
+    //   }
+    // );
   };
   const closeModal = () =>
     setSubmitResponse((prev) => ({ ...prev, showModal: false }));
   const closePolicyModal = () => setShowPolicy(false);
+  const closeQuotaModal = () => setQuotaModal(false);
   const openPolicyModal = () => setShowPolicy(true);
 
   useEffect(() => {
@@ -294,6 +298,26 @@ export const Component = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={closePolicyModal}>Close</Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={quotaModal}
+        maxWidth="sm"
+        fullWidth
+        onClose={closeQuotaModal}
+      >
+        <DialogTitle>Notice</DialogTitle>
+        <DialogContent>
+          <Alert severity="warning">
+            <Typography variant="body1">
+              The system has reached its maximum capacity for the day.
+              Reservation will resume tommorow at 8:00 AM.
+            </Typography>
+          </Alert>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeQuotaModal}>Close</Button>
         </DialogActions>
       </Dialog>
     </Box>

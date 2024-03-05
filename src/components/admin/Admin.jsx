@@ -21,7 +21,7 @@ export const Component = () => {
     <Box
       sx={{
         flexGrow: 1,
-        display: "flex",
+        display: "flex",  
         alignItems: "center",
         flexDirection: "column",
         height: "100vh",

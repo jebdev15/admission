@@ -37,3 +37,19 @@ export const editEntry = async (body) => {
     return { status: 400, msg: `[editEntry]: ${error}` };
   }
 };
+
+export const addWalkInEntry = async (body) => {
+  try {
+    const res = await fetch(`${route}/addWalkInEntry`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return await res.json();
+  } catch (error) {
+    console.error(error);
+    return { status: 400, msg: `[addWalkInEntry]: ${error}` };
+  }
+};

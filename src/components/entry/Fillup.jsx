@@ -205,9 +205,15 @@ const Fillup = ({
               required
             >
               <MenuItem value="Talisay">Talisay</MenuItem>
-              <MenuItem value="Fortune Towne">Fortune Towne</MenuItem>
-              <MenuItem value="Alijis">Alijis</MenuItem>
-              <MenuItem value="Binalbagan">Binalbagan</MenuItem>
+              <MenuItem value="Fortune Towne" disabled>
+                Fortune Towne
+              </MenuItem>
+              <MenuItem value="Alijis" disabled>
+                Alijis
+              </MenuItem>
+              <MenuItem value="Binalbagan" disabled>
+                Binalbagan
+              </MenuItem>
             </Select>
             <FormHelperText>
               Campus where you wish to take the exam.

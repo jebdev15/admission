@@ -311,8 +311,9 @@ export const Component = () => {
         <DialogContent>
           <Alert severity="warning">
             <Typography variant="body1">
-              The system has reached its maximum capacity for the day.
-              Reservation will resume tommorow at 8:00 AM.
+              Due to the high volume of reservations, our slots have reached the
+              maximum capacity. Please wait for further announcements. Thank
+              you!
             </Typography>
           </Alert>
         </DialogContent>

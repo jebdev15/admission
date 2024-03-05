@@ -37,7 +37,7 @@
             },
             {
               "course": "BSIT",
-              "full": "BSIT major in Refrigeration and Air-conditioning Technology"
+              "full": "BSIT major in Refrigeration and Air-Conditioning Technology"
             }
           ]
         },
@@ -221,7 +221,7 @@
           "courses": [
             {
               "course": "BSBA",
-              "full": "BSBA major in Financial Management"
+              "full": "BS in Business Administration major in Financial Management"
             }
           ]
         },
@@ -285,10 +285,6 @@
             {
               "course": "BSA",
               "full": "BS in Accountancy"
-            },
-            {
-              "course": "BSACT",
-              "full": "BS in Accounting Technology"
             },
             {
               "course": "BSBA",

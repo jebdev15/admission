@@ -24,10 +24,10 @@ import {
 } from "react-router-dom";
 import Fillup from "./Fillup";
 import Slot from "./Slot";
-import { getEntryInfo } from "../../handlers/email";
+import { getEntryInfo, getProgramSlots } from "../../handlers/email";
 import { Error } from "@mui/icons-material";
 import { submitEntry } from "../../handlers/entry";
-import Compressor from "compressorjs";
+import { campuses } from "../../programs2024.json";
 
 const defaultValues = {
   lrn: "",
@@ -72,6 +72,7 @@ export const Component = () => {
     venue: "",
     campus: "",
   });
+  const [programSlots, setProgramSlots] = useState([]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -96,6 +97,7 @@ export const Component = () => {
     setForm((prev) => ({
       ...prev,
       [name]: value,
+      examCenter: name === "campus" ? value : prev.examCenter,
     }));
   };
 
@@ -125,6 +127,10 @@ export const Component = () => {
     }
 
     formData.append("email", email);
+    formData.append("strategy", "programSlot");
+    // const code = campuses.find(({campus}) => campus === formData.get('campus'))
+    //                 .colleges.find
+    // formData.append("code", )
     submit(formData, {
       action: `/${code}`,
       method: "POST",
@@ -145,13 +151,21 @@ export const Component = () => {
 
   useEffect(() => {
     if (loaderData && Object.keys(loaderData).length) {
-      if (loaderData.msg !== "noEmail") {
-        setEmail(loaderData.email);
-        if (loaderData.msg === "withEntry") {
-          setForm(loaderData.entry);
-          setSlotData(loaderData.entry.slot);
-          setShowSlot(true);
+      console.log(loaderData);
+      if (loaderData.hasOwnProperty("entryInfo")) {
+        const { msg, email, entry } = loaderData.entryInfo;
+        if (msg !== "noEmail") {
+          setEmail(email);
+          if (msg === "withEntry") {
+            setForm(entry);
+            setSlotData(entry.slot);
+            setShowSlot(true);
+          }
         }
+      }
+      if (loaderData.hasOwnProperty("programSlots")) {
+        const { slots } = loaderData.programSlots;
+        setProgramSlots(slots);
       }
     }
   }, [loaderData]);
@@ -248,6 +262,7 @@ export const Component = () => {
                   uploadHandler={uploadHandler}
                   proceedHandler={proceedHandler}
                   isSubmitting={isSubmitting}
+                  programSlots={programSlots}
                 />
               )}
             </Paper>
@@ -297,7 +312,9 @@ export const Component = () => {
 
 export const loader = async ({ params }) => {
   const { code } = params;
-  return await getEntryInfo(code);
+  const entryInfo = await getEntryInfo(code);
+  const programSlots = await getProgramSlots();
+  return { entryInfo, programSlots };
 };
 export const action = async ({ request }) => {
   const formData = await request.formData();

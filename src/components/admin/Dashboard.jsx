@@ -82,9 +82,9 @@ export const Component = () => {
         width: 300,
         valueGetter: ({ row }) => {
           const { givenName, middleName, lastName } = row;
-          return `${givenName} ${
+          return `${lastName}, ${givenName} ${
             middleName ? middleName : ""
-          } ${lastName}`.toUpperCase();
+          } `.toUpperCase();
         },
       },
       {

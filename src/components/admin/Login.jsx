@@ -11,11 +11,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect } from "react";
-import { useActionData, useNavigate, useSubmit } from "react-router-dom";
-import { login } from "../../handlers/admin/login";
+import React from "react";
+import { useNavigation, useSubmit } from "react-router-dom";
 
 export const Component = () => {
+  const navigation = useNavigation();
   const submit = useSubmit();
   const [form, setForm] = React.useState({
     username: "",
@@ -42,7 +42,6 @@ export const Component = () => {
       }
     );
   };
-
   return (
     <Card variant="outlined" sx={{ maxWidth: "300px", width: "100%" }}>
       <CardContent>
@@ -97,8 +96,13 @@ export const Component = () => {
         </Box>
       </CardContent>
       <CardActions>
-        <Button size="small" sx={{ ml: "auto" }} onClick={login}>
-          LOGIN
+        <Button
+          size="small"
+          sx={{ ml: "auto" }}
+          onClick={login}
+          disabled={navigation.state === "loading"}
+        >
+          {navigation.state === "loading" ? "Loading..." : "Login"}
         </Button>
       </CardActions>
     </Card>

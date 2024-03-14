@@ -25,3 +25,11 @@ export const getEntryInfo = async (code) => {
     return { status: 400, msg: `[getEntryInfo]: ${error}` };
   }
 };
+export const getProgramSlots = async () => {
+  try {
+    const res = await fetch(`${route}/getProgramSlots`);
+    return await res.json();
+  } catch (error) {
+    return { status: 400, msg: `[getProgramSlots]: ${error}` };
+  }
+};

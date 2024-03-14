@@ -1,6 +1,6 @@
 export const login = (form) => {
   const { username, password, campus } = form;
-  if (username === "admin" && password === "admission2024") {
+  if (username === "admin" && password === "admin_admission") {
     return {
       status: 200,
       data: {

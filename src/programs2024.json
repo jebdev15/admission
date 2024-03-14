@@ -8,6 +8,7 @@
           "full": "College of Industrial Technology",
           "courses": [
             {
+              "code": "TALDRAFT",
               "course": "BSIT",
               "full": "BSIT major in Architechtural Drafting Technology"
             },
@@ -92,6 +93,7 @@
           "full": "College of Education",
           "courses": [
             {
+              "code": "TALBECED",
               "course": "BECED",
               "full": "Bachelor of Early Childhood Education"
             },
@@ -138,6 +140,7 @@
           "full": "College of Engineering",
           "courses": [
             {
+              "code": "TALCEENG",
               "course": "BSCE",
               "full": "BS in Civil Engineering"
             }

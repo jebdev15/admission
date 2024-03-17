@@ -34,71 +34,62 @@ const Fillup = ({
 
   // list all open slots on campus selected
   const listOfApplicableSlots = [];
-  programSlots.forEach((slot) => {
-    if (getSlotMapping(slot.slotID).campus === form.campus) {
-      listOfApplicableSlots.push(slot);
-    }
-  });
+  let options;
+  if (!programSlots) {
+    options = <MenuItem>No slots left!</MenuItem>;
+  } else {
+    programSlots.forEach((slot) => {
+      // console.log(`${slot.slotID} ${form.campus}`, getSlotMapping(slot.slotID));
+      if (getSlotMapping(slot.slotID).campus === form.campus) {
+        listOfApplicableSlots.push(slot);
+      }
+    });
 
-  const options = campus
-    ? campus.colleges.map(({ college, full, courses }) => {
-        const applicableSlotsPerCollege = listOfApplicableSlots.filter(
-          (slot) => slot.college === college
-        );
-        if (applicableSlotsPerCollege.length) {
-          const listSubHeader = (
-            <ListSubheader
-              sx={{
-                textAlign: "center",
-                fontWeight: 700,
-                textTransform: "uppercase",
-                color: "primary.main",
-              }}
-              key={college}
-            >{`${college} - ${full}`}</ListSubheader>
+    console.log("listOfApplicableSlots", listOfApplicableSlots);
+
+    options = campus
+      ? campus.colleges.map(({ college, full, courses }) => {
+          const applicableSlotsPerCollege = listOfApplicableSlots.filter(
+            (slot) => slot.college === college
           );
-          const menuItems = courses.map(
-            ({ course, full: fullCourseName, code }, i) => {
-              const courseWithMatchingCode = applicableSlotsPerCollege.find(
-                ({ slotID }) => slotID.startsWith(code)
-              );
-              if (
-                courseWithMatchingCode &&
-                Object.keys(courseWithMatchingCode).length
-              ) {
-                return (
-                  <MenuItem
-                    sx={{ whiteSpace: "normal" }}
-                    key={`${course}${i}`}
-                    value={fullCourseName}
-                  >{`${course} - ${fullCourseName}`}</MenuItem>
+          if (applicableSlotsPerCollege.length) {
+            const listSubHeader = (
+              <ListSubheader
+                sx={{
+                  textAlign: "center",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  color: "primary.main",
+                }}
+                key={college}
+              >{`${college} - ${full}`}</ListSubheader>
+            );
+            const menuItems = courses.map(
+              ({ course, full: fullCourseName, code }, i) => {
+                const courseWithMatchingCode = applicableSlotsPerCollege.find(
+                  ({ slotID }) => slotID.startsWith(code)
                 );
+                if (
+                  courseWithMatchingCode &&
+                  Object.keys(courseWithMatchingCode).length
+                ) {
+                  return (
+                    <MenuItem
+                      sx={{ whiteSpace: "normal" }}
+                      key={`${course}${i}`}
+                      value={fullCourseName}
+                    >{`${course} - ${fullCourseName}`}</MenuItem>
+                  );
+                }
               }
-            }
-          );
+            );
 
-          return [listSubHeader, menuItems];
-          // return [
-          //   <ListSubheader
-          //     sx={{
-          //       textAlign: "center",
-          //       fontWeight: 700,
-          //       textTransform: "uppercase",
-          //       color: "primary.main",
-          //     }}
-          //     key={college}
-          //   >{`${college} - ${full}`}</ListSubheader>,
-          //   courses.map(({ course, full: fullCourseName }, i) => (
-          //     <MenuItem
-          //       sx={{ whiteSpace: "normal" }}
-          //       key={`${course}${i}`}
-          //       value={fullCourseName}
-          //     >{`${course} - ${fullCourseName}`}</MenuItem>
-          //   )),
-          // ];
-        }
-      })
-    : [];
+            return [listSubHeader, menuItems];
+          }
+        })
+      : [];
+  }
+
   const complete = Object.keys(form).every(
     (key) => key === "middleName" || Boolean(form[key])
   );
@@ -234,9 +225,9 @@ const Fillup = ({
             required
           >
             <MenuItem value="Talisay">Talisay</MenuItem>
-            <MenuItem value="Fortune Towne">Fortune Towne</MenuItem>
+            {/* <MenuItem value="Fortune Towne">Fortune Towne</MenuItem> */}
             <MenuItem value="Alijis">Alijis</MenuItem>
-            <MenuItem value="Binalbagan">Binalbagan</MenuItem>
+            {/* <MenuItem value="Binalbagan">Binalbagan</MenuItem> */}
           </Select>
         </Grid>
         <Grid item xs={12} md={4}>

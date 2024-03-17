@@ -53,3 +53,10 @@ export const addWalkInEntry = async (body) => {
     return { status: 400, msg: `[addWalkInEntry]: ${error}` };
   }
 };
+
+export const getTotalEmails = async (body) => {
+  try {
+    const res = await fetch(`${route}/getTotalEmails`);
+    return await res.json();
+  } catch (error) {}
+};

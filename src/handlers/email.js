@@ -1,5 +1,5 @@
 const route = import.meta.env.VITE_API_URL;
-export const registerUser = async (email) => {
+export const registerUser = async (email, v) => {
   try {
     const res = await fetch(`${route}/registerUser`, {
       method: "POST",
@@ -7,7 +7,7 @@ export const registerUser = async (email) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email, v }),
     });
 
     return await res.json();

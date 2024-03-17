@@ -38,6 +38,7 @@ import {
   Logout,
 } from "@mui/icons-material";
 import { MobileDatePicker } from "@mui/x-date-pickers";
+import { getSlotMapping } from "../../utils/utils";
 const defaultValues = {
   lrn: "",
   givenName: "",
@@ -103,15 +104,7 @@ export const Component = () => {
         width: 200,
         valueGetter: ({ row }) => {
           let { slotID, timeSlot } = row;
-          const prefix = ["TAL", "BIN", "ALI", "FT"].find((key) =>
-            slotID.startsWith(key)
-          );
-          const date = slotID.substr(prefix.length, 4);
-          const datetime = dayjs(
-            `2024-${date.substr(0, 2)}-${date.substr(2, 2)} ${timeSlot}`,
-            "YYYY-MM-DD h:mm A"
-          ).format("MMM D, YYYY h:mm A");
-          return datetime;
+          return getSlotMapping(slotID).date;
         },
       },
       {

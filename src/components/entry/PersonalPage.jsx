@@ -27,7 +27,7 @@ import Slot from "./Slot";
 import { getEntryInfo, getProgramSlots } from "../../handlers/email";
 import { Error } from "@mui/icons-material";
 import { submitEntry } from "../../handlers/entry";
-import { campuses } from "../../programs2024.json";
+// import { campuses } from "../../programs2024.json";
 
 const defaultValues = {
   lrn: "",
@@ -128,9 +128,7 @@ export const Component = () => {
 
     formData.append("email", email);
     formData.append("strategy", "programSlot");
-    // const code = campuses.find(({campus}) => campus === formData.get('campus'))
-    //                 .colleges.find
-    // formData.append("code", )
+
     submit(formData, {
       action: `/${code}`,
       method: "POST",
@@ -147,11 +145,10 @@ export const Component = () => {
       setForm((prev) => ({ ...prev, [name]: reader.result }));
   };
 
-  const isEmailsMatching = email === confirmEmail;
+  const isEmailsMatching = email.toLowerCase() === confirmEmail.toLowerCase();
 
   useEffect(() => {
     if (loaderData && Object.keys(loaderData).length) {
-      console.log(loaderData);
       if (loaderData.hasOwnProperty("entryInfo")) {
         const { msg, email, entry } = loaderData.entryInfo;
         if (msg !== "noEmail") {
@@ -180,10 +177,10 @@ export const Component = () => {
           show: true,
           message:
             actionData.msg === "noSlot"
-              ? "No slots left in selected exam center!"
+              ? "No slots left in selected program"
               : actionData.msg === "duplicate"
               ? "Duplicate entry found!"
-              : "Sumit failed! Check you internet connection.",
+              : "Submit failed! Check you internet connection.",
         }));
       }
     }

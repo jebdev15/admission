@@ -1,6 +1,6 @@
 import {
   Alert,
-  AppBar,
+  Avatar,
   Box,
   Button,
   Card,
@@ -18,21 +18,31 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Header from "../Header";
-import { useActionData, useNavigate, useSubmit } from "react-router-dom";
+import { useActionData, useLoaderData, useSubmit } from "react-router-dom";
 import { registerUser } from "../../handlers/email";
+import { getTotalEmails } from "../../handlers/entry";
+import dayjs from "dayjs";
+import { Error } from "@mui/icons-material";
 
 const AlertResponse = ({ msg }) => {
   let text = "";
   switch (msg) {
     case "success":
-      text = "Email successfully submitted! Please check your email";
+      text =
+        "Email successfully submitted! Expect a link in your email once the system had determined availability of slots.";
       break;
     case "duplicate":
       text = "Email has already submitted an entry!";
       break;
-
+    case "refresh":
+      text =
+        "Old version of admission portal detected. Please refresh this page!";
+      break;
+    case "full":
+      text = `Alloted slots for TODAY is currently full and will open again for tommorow. For updates and inquiries, visit our official website: www.chmsu.edu.ph`;
+      break;
     default:
-      text = "Something went wrong! Contact CHMSU ICT";
+      text = "Something went wrong! Please try again later.";
 
       break;
   }
@@ -112,41 +122,47 @@ const DataPrivacyContent = () => (
   </DialogContentText>
 );
 export const Component = () => {
-  const navigate = useNavigate();
-
   const [showPolicy, setShowPolicy] = useState(false);
   const [proceed, setProceed] = useState(false);
   const [submitResponse, setSubmitResponse] = useState({
     showModal: false,
     msg: "",
   });
-  const [quotaModal, setQuotaModal] = useState(false);
+  // const [quotaModal, setQuotaModal] = useState(false);
+  const [currentTime, setCurrentTime] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [emailsCount, setEmailsCount] = useState(0);
   const submit = useSubmit();
   const actionData = useActionData();
+  const loaderData = useLoaderData();
   const proceedHandler = () => setProceed(!proceed);
   const submitHandler = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email");
-    setQuotaModal(true);
-    setIsSubmitting(false);
-    // submit(
-    //   { email },
-    //   {
-    //     action: "/",
-    //     method: "post",
-    //     encType: "application/json",
-    //   }
-    // );
+    // setQuotaModal(true);
+    setIsSubmitting(true);
+    submit(
+      { email, v: 2 },
+      {
+        action: "/",
+        method: "post",
+        encType: "application/json",
+      }
+    );
   };
   const closeModal = () =>
     setSubmitResponse((prev) => ({ ...prev, showModal: false }));
   const closePolicyModal = () => setShowPolicy(false);
-  const closeQuotaModal = () => setQuotaModal(false);
+  // const closeQuotaModal = () => setQuotaModal(false);
   const openPolicyModal = () => setShowPolicy(true);
 
+  const isEmailCountReached = emailsCount >= 244;
+  const isClose =
+    dayjs(currentTime).hour() < 8 || dayjs(currentTime).hour() > 17;
+  // const isClose = false;
+  console.log("time", dayjs(currentTime).format("hh:mm A"));
   useEffect(() => {
     if (actionData && Object.keys(actionData).length) {
       setSubmitResponse((prev) => ({
@@ -158,6 +174,12 @@ export const Component = () => {
       setIsSubmitting(false);
     }
   }, [actionData]);
+  useEffect(() => {
+    if (loaderData && Object.keys(loaderData).length) {
+      setEmailsCount(loaderData.count);
+      setCurrentTime(loaderData.time);
+    }
+  }, [loaderData]);
   return (
     <Box
       sx={{
@@ -191,46 +213,77 @@ export const Component = () => {
           >
             <Card variant="outlined" sx={{ maxWidth: "500px" }}>
               <CardContent>
-                <Typography
-                  variant="h6"
-                  fontWeight={700}
-                  color="primary.main"
-                  gutterBottom
-                >
-                  ADMISSION PROCESS INSTRUCTION
-                </Typography>
-                <Typography variant="body">
-                  Kindly provide your email address on the form that will appear
-                  after you proceed. An email confirmation will be sent to the
-                  email address provided with the link to the admission form.
-                  <br />
-                  <br />
-                  This serves as your entry into the system. 
-                  <Typography variant="subtitle2">
-                    By proceeding, you have read and acknowledged the{" "}
-                    <Button
-                      variant="text"
-                      sx={{ m: 0, p: 0, textTransform: "capitalize" }}
-                      onClick={openPolicyModal}
+                {isEmailCountReached || isClose ? (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Avatar sx={{ bgcolor: "error.main", mb: 1 }}>
+                      <Error fontSize="large" />
+                    </Avatar>
+                    <Typography
+                      variant="h6"
+                      textAlign="center"
+                      lineHeight="1.25"
+                      fontWeight={400}
                     >
-                      Data Privacy Policy
-                    </Button>
-                  </Typography>
-                </Typography>
-                <Alert severity="info" sx={{ mt: 3 }}>
-                  <Typography variant="caption">
-                    Please confirm that you have a working email before
-                    proceeding
-                  </Typography>
-                </Alert>
-                <Alert severity="info" sx={{ mt: 1 }}>
-                  <Typography variant="caption">
-                    For Desktop/Laptop users: Prepare photo and School ID for
-                    uploading.
-                  </Typography>
-                </Alert>
+                      Online Reservation for Entrance Exam is Already Close. For
+                      Updates and Inquiries, visit our official website:{" "}
+                      <Button component="a" href="https://chmsu.edu.ph">
+                        www.chmsu.edu.ph
+                      </Button>
+                    </Typography>
+                  </Box>
+                ) : (
+                  <Box>
+                    <Typography
+                      variant="h6"
+                      fontWeight={700}
+                      color="primary.main"
+                      gutterBottom
+                    >
+                      ADMISSION PROCESS INSTRUCTION
+                    </Typography>
+                    <Typography variant="body">
+                      Kindly provide your email address on the form that will
+                      appear after you proceed. An email confirmation will be
+                      sent to the email address provided with the link to the
+                      admission form.
+                      <br />
+                      <br />
+                      This serves as your entry into the system. 
+                      <Typography variant="subtitle2">
+                        By proceeding, you have read and acknowledged the{" "}
+                        <Button
+                          variant="text"
+                          sx={{ m: 0, p: 0, textTransform: "capitalize" }}
+                          onClick={openPolicyModal}
+                        >
+                          Data Privacy Policy
+                        </Button>
+                      </Typography>
+                    </Typography>
+                    <Alert severity="info" sx={{ mt: 3 }}>
+                      <Typography variant="caption">
+                        Please confirm that you have a working email before
+                        proceeding
+                      </Typography>
+                    </Alert>
+                    <Alert severity="info" sx={{ mt: 1 }}>
+                      <Typography variant="caption">
+                        For Desktop/Laptop users: Prepare photo and School ID
+                        for uploading.
+                      </Typography>
+                    </Alert>
+                  </Box>
+                )}
               </CardContent>
-              <CardActions>
+              <CardActions
+                sx={{ display: isEmailCountReached || isClose ? "none" : "" }}
+              >
                 <Button
                   size="small"
                   sx={{ ml: "auto", display: proceed ? "none" : "" }}
@@ -301,7 +354,7 @@ export const Component = () => {
         </DialogActions>
       </Dialog>
 
-      <Dialog
+      {/* <Dialog
         open={quotaModal}
         maxWidth="sm"
         fullWidth
@@ -320,12 +373,79 @@ export const Component = () => {
         <DialogActions>
           <Button onClick={closeQuotaModal}>Close</Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
     </Box>
   );
 };
-
+export const ErrorBoundary = () => {
+  return (
+    <Box
+      sx={{
+        flexGrow: 1,
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        height: "100vh",
+      }}
+    >
+      <Header />
+      <Box
+        sx={{
+          flexGrow: 1,
+          width: "100%",
+          bgcolor: "#81c784",
+          opacity: 0.8,
+          backgroundSize: "20px 20px",
+          backgroundImage:
+            "repeating-linear-gradient(0deg, #81c784, #81c784 1px, #e8f5e9 1px, #e8f5e9)",
+        }}
+      >
+        <Container sx={{ height: "100%" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+            }}
+          >
+            <Card variant="outlined" sx={{ maxWidth: "500px" }}>
+              <CardContent>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <Avatar sx={{ bgcolor: "error.main", mb: 1 }}>
+                    <Error fontSize="large" />
+                  </Avatar>
+                  <Typography
+                    variant="h6"
+                    textAlign="center"
+                    lineHeight="1.25"
+                    fontWeight={400}
+                  >
+                    Acceptance of Exam Reservation is currently close. For
+                    updates and inquiries, visit our official website:{" "}
+                    <Button component="a" href="https://chmsu.edu.ph">
+                      www.chmsu.edu.ph
+                    </Button>
+                  </Typography>
+                </Box>
+              </CardContent>
+            </Card>
+          </Box>
+        </Container>
+      </Box>
+    </Box>
+  );
+};
+export const loader = async () => {
+  return await getTotalEmails();
+};
 export const action = async ({ request }) => {
-  const { email } = await request.json();
-  return await registerUser(email);
+  const { email, v } = await request.json();
+  return await registerUser(email, v);
 };

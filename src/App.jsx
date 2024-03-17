@@ -3,10 +3,14 @@ const router = createBrowserRouter([
   {
     path: "/",
     lazy: async () => {
-      let { action, Component } = await import("./components/entry/Start");
+      let { action, Component, loader, ErrorBoundary } = await import(
+        "./components/entry/Start"
+      );
       return {
         Component,
         action,
+        loader,
+        ErrorBoundary,
       };
     },
   },

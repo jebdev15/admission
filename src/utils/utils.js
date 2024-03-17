@@ -24,14 +24,13 @@ export const getSlotMapping = (slotID) => {
     },
   ];
 
-  const result = map.find((item) => slotID.includes(item.key));
+  const result = map.find((item) => slotID.startsWith(item.key));
   if (result) {
     let start = 0;
     if ([13, 14].includes(slotID.length)) {
       start = 5;
     }
     const date = slotID.split(result.key)[1].slice(start, start + 4);
-    console.log("date", date);
     const month = date.slice(0, 2);
     const day = date.slice(2);
     return {

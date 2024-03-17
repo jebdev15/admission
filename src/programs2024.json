@@ -8,57 +8,14 @@
           "full": "College of Industrial Technology",
           "courses": [
             {
-              "code": "TALDRAFT",
-              "course": "BSIT",
-              "full": "BSIT major in Architechtural Drafting Technology"
-            },
-            {
-              "course": "BSIT",
-              "full": "BSIT major in Automotive Technology"
-            },
-            {
-              "course": "BSIT",
-              "full": "BSIT major in Electrical Technology"
-            },
-            {
-              "course": "BSIT",
-              "full": "BSIT major in Electronics Technology"
-            },
-            {
+              "code": "TALFASHT",
               "course": "BSIT",
               "full": "BSIT major in Fashion and Apparel Technology"
             },
             {
-              "course": "BSIT",
-              "full": "BSIT major in Foods Trade Technology"
-            },
-            {
-              "course": "BSIT",
-              "full": "BSIT major in Mechanical Technology"
-            },
-            {
+              "code": "TALRAACT",
               "course": "BSIT",
               "full": "BSIT major in Refrigeration and Air-Conditioning Technology"
-            }
-          ]
-        },
-        {
-          "college": "CCS",
-          "full": "College of Computer Studies",
-          "courses": [
-            {
-              "course": "BSIS",
-              "full": "BS in Information Systems"
-            }
-          ]
-        },
-        {
-          "college": "CBMA",
-          "full": "College of Business Management and Accountancy",
-          "courses": [
-            {
-              "course": "BSHM",
-              "full": "BS in Hospitality Management"
             }
           ]
         },
@@ -67,22 +24,22 @@
           "full": "College of Arts and Sciences",
           "courses": [
             {
+              "code": "TALABENG",
               "course": "AB-ENG L",
               "full": "BA in English Language"
             },
             {
+              "code": "TALABSOC",
               "course": "AB-SOCSCI",
               "full": "BA in Social Science"
             },
             {
-              "course": "BS PSYCH",
-              "full": "BS in Psychology"
-            },
-            {
+              "code": "TALPUBAD",
               "course": "BPA",
               "full": "Bachelor of Public Administration"
             },
             {
+              "code": "TALAMATH",
               "course": "BSAM",
               "full": "BS in Applied Mathematics"
             }
@@ -93,43 +50,12 @@
           "full": "College of Education",
           "courses": [
             {
-              "code": "TALBECED",
-              "course": "BECED",
-              "full": "Bachelor of Early Childhood Education"
-            },
-            {
-              "course": "BEED",
-              "full": "Bachelor of Elementary Education"
-            },
-            {
-              "course": "BPED",
-              "full": "Bachelor of Physical Education"
-            },
-            {
-              "course": "BSNED",
-              "full": "Bachelor of Special Needs Education"
-            },
-            {
-              "course": "BSED",
-              "full": "BSED major in English"
-            },
-            {
-              "course": "BSED",
-              "full": "BSED major in Filipino"
-            },
-            {
-              "course": "BSED",
-              "full": "BSED major in Mathematics"
-            },
-            {
-              "course": "BSED",
-              "full": "BSED major in Science"
-            },
-            {
+              "code": "TALHOMEC",
               "course": "BTLED",
               "full": "BTLED major in Home Economics"
             },
             {
+              "code": "TALIARTS",
               "course": "BTLED",
               "full": "BTLED major in Industrial Arts"
             }
@@ -140,7 +66,7 @@
           "full": "College of Engineering",
           "courses": [
             {
-              "code": "TALCEENG",
+              "code": "TALCIVIL",
               "course": "BSCE",
               "full": "BS in Civil Engineering"
             }
@@ -156,12 +82,9 @@
           "full": "College of Computer Studies",
           "courses": [
             {
+              "code": "ALIINFOS",
               "course": "BSIS",
               "full": "BS in Information Systems"
-            },
-            {
-              "course": "BSIT",
-              "full": "BS in Information Technology"
             }
           ]
         },
@@ -170,30 +93,17 @@
           "full": "College of Industrial Technology",
           "courses": [
             {
-              "course": "BSIT",
-              "full": "BSIT major in Architechtural Drafting Technology"
-            },
-            {
-              "course": "BSIT",
-              "full": "BSIT major in Automotive Technology"
-            },
-            {
-              "course": "BSIT",
-              "full": "BSIT major in Computer Technology"
-            },
-            {
+              "code": "ALIELECT",
               "course": "BSIT",
               "full": "BSIT major in Electrical Technology"
             },
             {
+              "code": "ALIELECS",
               "course": "BSIT",
               "full": "BSIT major in Electronics Technology"
             },
             {
-              "course": "BSIT",
-              "full": "BSIT major in Foods Trade Technology"
-            },
-            {
+              "code": "ALIMECHT",
               "course": "BSIT",
               "full": "BSIT major in Mechanical Technology"
             }
@@ -204,116 +114,9 @@
           "full": "College of Engineering",
           "courses": [
             {
-              "course": "BS CPE",
-              "full": "BS in Computer Engineering"
-            },
-            {
+              "code": "ALIELECE",
               "course": "BS ECE",
               "full": "BS in Electronics Engineering"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "campus": "Binalbagan",
-      "colleges": [
-        {
-          "college": "CBMA",
-          "full": "College of Business Management and Accountancy",
-          "courses": [
-            {
-              "course": "BSBA",
-              "full": "BS in Business Administration major in Financial Management"
-            }
-          ]
-        },
-        {
-          "college": "CCS",
-          "full": "College of Computer Studies",
-          "courses": [
-            {
-              "course": "BSIT",
-              "full": "BS in Information Technology"
-            }
-          ]
-        },
-        {
-          "college": "CCJ",
-          "full": "College of Criminal Justice",
-          "courses": [
-            {
-              "course": "BSCRIM",
-              "full": "BS in Criminology"
-            }
-          ]
-        },
-        {
-          "college": "COF",
-          "full": "College of Fisheries",
-          "courses": [
-            {
-              "course": "BSFI",
-              "full": "BS in Fisheries"
-            }
-          ]
-        },
-        {
-          "college": "COED",
-          "full": "College of Education",
-          "courses": [
-            {
-              "course": "BEED",
-              "full": "Bachelor of Elementary Education"
-            },
-            {
-              "course": "BSED",
-              "full": "BSED major in Science"
-            },
-            {
-              "course": "BTLED",
-              "full": "BTLED major in Home Economics"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "campus": "Fortune Towne",
-      "colleges": [
-        {
-          "college": "CBMA",
-          "full": "College of Business Management and Accountancy",
-          "courses": [
-            {
-              "course": "BSA",
-              "full": "BS in Accountancy"
-            },
-            {
-              "course": "BSBA",
-              "full": "BS in Business Administration major in Financial Management"
-            },
-            {
-              "course": "BSE",
-              "full": "BS in Entrepreneurship"
-            },
-            {
-              "course": "BSMA",
-              "full": "BS in Management Accounting"
-            },
-            {
-              "course": "BSOA",
-              "full": "BS in Office Administration"
-            }
-          ]
-        },
-        {
-          "college": "CCS",
-          "full": "College of Computer Studies",
-          "courses": [
-            {
-              "course": "BSIS",
-              "full": "BS in Information Systems"
             }
           ]
         }

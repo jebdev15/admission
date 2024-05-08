@@ -56,6 +56,7 @@ const router = createBrowserRouter([
             Component,
             loader,
             action,
+            errorElement: <h1>Error</h1>,
           };
         },
       },

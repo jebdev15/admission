@@ -39,6 +39,8 @@ import {
 } from "@mui/icons-material";
 import { MobileDatePicker } from "@mui/x-date-pickers";
 import { getSlotMapping } from "../../utils/utils";
+import { useCookies } from "react-cookie";
+
 const defaultValues = {
   lrn: "",
   givenName: "",
@@ -57,6 +59,8 @@ export const Component = () => {
   const actionData = useActionData;
   const submit = useSubmit();
   const { campus } = useParams();
+  const siteCookies = ["session_id", "session_campus"];
+  const [cookies, setCookie, removeCookie] = useCookies(siteCookies);
 
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -81,8 +85,8 @@ export const Component = () => {
         field: "fullName",
         headerName: "Full Name",
         width: 300,
-        valueGetter: ({ row }) => {
-          const { givenName, middleName, lastName } = row;
+        valueGetter: ( value, rows ) => {
+          const { givenName, middleName, lastName } = rows;
           return `${lastName}, ${givenName} ${
             middleName ? middleName : ""
           } `.toUpperCase();
@@ -102,8 +106,8 @@ export const Component = () => {
         field: "examDateTime",
         headerName: "Exam Date Time",
         width: 200,
-        valueGetter: ({ row }) => {
-          let { slotID, timeSlot } = row;
+        valueGetter: ( value, rows ) => {
+          let { slotID, timeSlot } = rows;
           return getSlotMapping(slotID).date;
         },
       },
@@ -112,7 +116,7 @@ export const Component = () => {
         type: "string",
         headerName: "Status",
         width: 200,
-        valueGetter: ({ value }) =>
+        valueGetter: ( value, rows ) =>
           value ? (value === 1 ? "Reserved" : "Walk-In") : "Cancelled",
       },
       {
@@ -139,7 +143,7 @@ export const Component = () => {
         field: "birthDate",
         headerName: "Birth Date",
         width: 200,
-        valueGetter: ({ value }) => dayjs(value).format("MMM D, YYYY"),
+        valueGetter: ( value, rows ) => dayjs(value).format("MMM D, YYYY"),
       },
       {
         field: "phoneNumber",
@@ -150,13 +154,13 @@ export const Component = () => {
         field: "email",
         headerName: "Email",
         width: 200,
-        valueGetter: ({ value }) => (value.includes("@") ? value : "-"),
+        valueGetter: ( value, rows ) => (value.includes("@") ? value : "-"),
       },
       {
         field: "timestamp",
         headerName: "Timestamp",
         width: 200,
-        valueGetter: ({ value }) => dayjs(value).format("MMM D, YYYY h:mm A"),
+        valueGetter: ( value, rows ) => dayjs(value).format("MMM D, YYYY h:mm A"),
       },
       {
         field: "actions",
@@ -247,10 +251,14 @@ export const Component = () => {
       encType: "application/json",
     });
   };
+
   const closeWalkInModal = () => setWalkinModal(false);
   const logout = () => {
-    navigate("/admin");
+    removeCookie("session_id");
+    removeCookie("session_campus");
+    location.reload();
   };
+  
   const addHandler = () => {
     setIsSubmitting(true);
 
@@ -269,11 +277,15 @@ export const Component = () => {
   );
 
   useEffect(() => {
-    if (loaderData) {
-      setRows(loaderData.entries);
-      setLoading(false);
+    if(cookies.session_id !== '' && cookies.session_campus !== '') {
+      if (loaderData) {
+        setRows(loaderData.entries);
+        setLoading(false);
+      }
+      // console.log(loaderData.entries);
+      // console.log(cookies?.session_id);
     }
-  }, [loaderData]);
+  }, [loaderData, cookies, navigate]);
 
   return (
     <Paper sx={{ width: "100%", maxHeight: "70vh", height: "100%" }}>
@@ -519,8 +531,16 @@ export const Component = () => {
   );
 };
 
-export const loader = async ({ params }) => {
-  const { campus } = params;
+// export const loader = async ({ params }) => {
+//   const { campus } = params;
+//   return await getEntries(campus);
+// };
+
+export const loader = async () => {
+  // const { campus } = params;
+  const campus = document.cookie.split(';')[1].split('=')[1];
+  console.log(campus);
+  // console.log(request.headers.get('session_id'));
   return await getEntries(campus);
 };
 

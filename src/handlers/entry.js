@@ -13,6 +13,18 @@ export const submitEntry = async (formData) => {
 };
 
 export const getEntries = async (campus) => {
+  // const sessionID = checkCookie('session_id');
+  // const campus = checkCookie('session_campus');
+
+  // if(sessionID !== null && campus !== null) {
+  //   try {
+  //     const res = await fetch(`${route}/getEntries/?campus=${campus}`);
+  //     return await res.json();
+  //   } catch (error) {
+  //     console.error(error);
+  //     return { status: 400, msg: `[getEntries]: ${error}` };
+  //   }
+  // }
   try {
     const res = await fetch(`${route}/getEntries/?campus=${campus}`);
     return await res.json();
@@ -20,6 +32,19 @@ export const getEntries = async (campus) => {
     console.error(error);
     return { status: 400, msg: `[getEntries]: ${error}` };
   }
+};
+
+const checkCookie = (cookieName) => {
+  const cookies = document.cookie.split(';').map(cookie => cookie.trim());
+
+  for (const cookie of cookies) {
+      const [name, value] = cookie.split('=');
+      if (name === cookieName) {
+          return decodeURIComponent(value);
+      }
+  }
+
+  return null;
 };
 
 export const editEntry = async (body) => {

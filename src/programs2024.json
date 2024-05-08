@@ -1,47 +1,49 @@
 {
   "campuses": [
     {
-      "campus": "Talisay",
+      "campus": "Binalbagan",
       "colleges": [
         {
-          "college": "CIT",
-          "full": "College of Industrial Technology",
+          "college": "CBMA",
+          "full": "College of Business Management and Accountancy",
           "courses": [
             {
-              "code": "TALFASHT",
-              "course": "BSIT",
-              "full": "BSIT major in Fashion and Apparel Technology"
-            },
-            {
-              "code": "TALRAACT",
-              "course": "BSIT",
-              "full": "BSIT major in Refrigeration and Air-Conditioning Technology"
+              "code": "BINBAMFM",
+              "course": "BSBA",
+              "full": "BS in Business Administration major in Financial Management"
             }
           ]
         },
         {
-          "college": "CAS",
-          "full": "College of Arts and Sciences",
+          "college": "CCS",
+          "full": "College of Computer Studies",
           "courses": [
             {
-              "code": "TALABENG",
-              "course": "AB-ENG L",
-              "full": "BA in English Language"
-            },
+              "code": "BININFOT",
+              "course": "BSIT",
+              "full": "BS in Information Technology"
+            }
+          ]
+        },
+        {
+          "college": "CCJ",
+          "full": "College of Criminal Justice",
+          "courses": [
             {
-              "code": "TALABSOC",
-              "course": "AB-SOCSCI",
-              "full": "BA in Social Science"
-            },
+              "code": "BINBCRIM",
+              "course": "BSCRIM",
+              "full": "BS in Criminology"
+            }
+          ]
+        },
+        {
+          "college": "COF",
+          "full": "College of Fisheries",
+          "courses": [
             {
-              "code": "TALPUBAD",
-              "course": "BPA",
-              "full": "Bachelor of Public Administration"
-            },
-            {
-              "code": "TALAMATH",
-              "course": "BSAM",
-              "full": "BS in Applied Mathematics"
+              "code": "BINBFISH",
+              "course": "BSFI",
+              "full": "BS in Fisheries"
             }
           ]
         },
@@ -50,73 +52,19 @@
           "full": "College of Education",
           "courses": [
             {
-              "code": "TALHOMEC",
+              "code": "BINELEED",
+              "course": "BEED",
+              "full": "Bachelor of Elementary Education"
+            },
+            {
+              "code": "BINEDSCI",
+              "course": "BSED",
+              "full": "BSED major in Science"
+            },
+            {
+              "code": "BINHOECO",
               "course": "BTLED",
               "full": "BTLED major in Home Economics"
-            },
-            {
-              "code": "TALIARTS",
-              "course": "BTLED",
-              "full": "BTLED major in Industrial Arts"
-            }
-          ]
-        },
-        {
-          "college": "COE",
-          "full": "College of Engineering",
-          "courses": [
-            {
-              "code": "TALCIVIL",
-              "course": "BSCE",
-              "full": "BS in Civil Engineering"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "campus": "Alijis",
-      "colleges": [
-        {
-          "college": "CCS",
-          "full": "College of Computer Studies",
-          "courses": [
-            {
-              "code": "ALIINFOS",
-              "course": "BSIS",
-              "full": "BS in Information Systems"
-            }
-          ]
-        },
-        {
-          "college": "CIT",
-          "full": "College of Industrial Technology",
-          "courses": [
-            {
-              "code": "ALIELECT",
-              "course": "BSIT",
-              "full": "BSIT major in Electrical Technology"
-            },
-            {
-              "code": "ALIELECS",
-              "course": "BSIT",
-              "full": "BSIT major in Electronics Technology"
-            },
-            {
-              "code": "ALIMECHT",
-              "course": "BSIT",
-              "full": "BSIT major in Mechanical Technology"
-            }
-          ]
-        },
-        {
-          "college": "COE",
-          "full": "College of Engineering",
-          "courses": [
-            {
-              "code": "ALIELECE",
-              "course": "BS ECE",
-              "full": "BS in Electronics Engineering"
             }
           ]
         }

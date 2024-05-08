@@ -39,7 +39,8 @@ const AlertResponse = ({ msg }) => {
         "Old version of admission portal detected. Please refresh this page!";
       break;
     case "full":
-      text = `Alloted slots for TODAY is currently full and will open again for tommorow. For updates and inquiries, visit our official website: www.chmsu.edu.ph`;
+      // text = `Alloted slots for TODAY is currently full and will open again for tommorow. For updates and inquiries, visit our official website: www.chmsu.edu.ph`;
+      text = `No Slots Left. For updates and inquiries, visit our official website: www.chmsu.edu.ph`; // May 8, 2024
       break;
     default:
       text = "Something went wrong! Please try again later.";

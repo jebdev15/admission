@@ -3,20 +3,35 @@ import React, { useEffect } from "react";
 import Header from "../Header";
 import { Outlet, useActionData, useNavigate } from "react-router-dom";
 import { login } from "../../handlers/admin/login";
-let campus = "";
+import { useCookies } from "react-cookie";
+
+// let campus = "";
 export const Component = () => {
+  const siteCookies = ["session_id", "session_campus"];
   const navigate = useNavigate();
   const actionData = useActionData();
+  const [cookies, ,] = useCookies(siteCookies);
+
+  const checkCookie = (cookieName) => {
+    // console.log(cookies.cookieName);
+    return Object.prototype.hasOwnProperty.call(cookies, cookieName)
+  }
+
   useEffect(() => {
-    if (actionData) {
-      if (actionData.status === 200) {
-        campus = actionData.data.campus;
-        navigate("/admin/" + campus);
+    if(checkCookie('session_id') && checkCookie('session_campus')) {
+      navigate("/admin/" + cookies.session_campus);
+    } else {
+      if(actionData){
+        if(actionData.status === 200) {
+          navigate("/admin/" + actionData.data.campus);
+        } else {
+          alert(actionData.data.message);
+        } 
       } else {
-        alert(actionData.data.message);
+        navigate("/admin");
       }
     }
-  }, [actionData]);
+  }, [actionData, cookies, navigate]);
   return (
     <Box
       sx={{

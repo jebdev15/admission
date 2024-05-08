@@ -11,7 +11,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import { useCookies } from "react-cookie";
 import { useNavigation, useSubmit } from "react-router-dom";
 
 export const Component = () => {
@@ -42,6 +43,7 @@ export const Component = () => {
       }
     );
   };
+
   return (
     <Card variant="outlined" sx={{ maxWidth: "300px", width: "100%" }}>
       <CardContent>

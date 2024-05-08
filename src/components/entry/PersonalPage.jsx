@@ -177,7 +177,8 @@ export const Component = () => {
           show: true,
           message:
             actionData.msg === "noSlot"
-              ? "No slots left in selected program"
+              // ? "No slots left in selected program"
+              ? "No slots left" // May 8, 2024
               : actionData.msg === "duplicate"
               ? "Duplicate entry found!"
               : "Submit failed! Check you internet connection.",

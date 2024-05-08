@@ -45,14 +45,60 @@ const Fillup = ({
       }
     });
 
-    console.log("listOfApplicableSlots", listOfApplicableSlots);
+    // console.log("listOfApplicableSlots", listOfApplicableSlots);
+    // console.log(campus);
+    // console.log(campus?.campus === 'Binalbagan');
+    // console.log(campus?.colleges.length);
 
+    // options = campus
+    //   ? campus.colleges.map(({ college, full, courses }) => {
+    //       const applicableSlotsPerCollege = listOfApplicableSlots.filter(
+    //         (slot) => slot.college === college
+    //       );
+    //       console.log(applicableSlotsPerCollege.length);
+    //       if (applicableSlotsPerCollege.length) {
+    //         const listSubHeader = (
+    //           <ListSubheader
+    //             sx={{
+    //               textAlign: "center",
+    //               fontWeight: 700,
+    //               textTransform: "uppercase",
+    //               color: "primary.main",
+    //             }}
+    //             key={college}
+    //           >{`${college} - ${full}`}</ListSubheader>
+    //         );
+    //         const menuItems = courses.map(
+    //           ({ course, full: fullCourseName, code }, i) => {
+    //             console.log({ course, full: fullCourseName, code });
+    //             const courseWithMatchingCode = applicableSlotsPerCollege.find(
+    //               ({ slotID }) => slotID.startsWith(code)
+    //             );
+    //             if (
+    //               courseWithMatchingCode &&
+    //               Object.keys(courseWithMatchingCode).length
+    //             ) {
+    //               return (
+    //                 <MenuItem
+    //                   sx={{ whiteSpace: "normal" }}
+    //                   key={`${course}${i}`}
+    //                   value={fullCourseName}
+    //                 >{`${course} - ${fullCourseName}`}</MenuItem>
+    //               );
+    //             }
+    //           }
+    //         );
+
+    //         return [listSubHeader, menuItems];
+    //       } else {
+    //         console.log("no applicable slots");
+    //       }
+    //     })
+    //   : [];
+    // }
     options = campus
       ? campus.colleges.map(({ college, full, courses }) => {
-          const applicableSlotsPerCollege = listOfApplicableSlots.filter(
-            (slot) => slot.college === college
-          );
-          if (applicableSlotsPerCollege.length) {
+          if (campus.colleges.length > 0) {
             const listSubHeader = (
               <ListSubheader
                 sx={{
@@ -66,29 +112,23 @@ const Fillup = ({
             );
             const menuItems = courses.map(
               ({ course, full: fullCourseName, code }, i) => {
-                const courseWithMatchingCode = applicableSlotsPerCollege.find(
-                  ({ slotID }) => slotID.startsWith(code)
+                return (
+                  <MenuItem
+                    sx={{ whiteSpace: "normal" }}
+                    key={`${course}${i}`}
+                    value={fullCourseName}
+                  >{`${course} - ${fullCourseName}`}</MenuItem>
                 );
-                if (
-                  courseWithMatchingCode &&
-                  Object.keys(courseWithMatchingCode).length
-                ) {
-                  return (
-                    <MenuItem
-                      sx={{ whiteSpace: "normal" }}
-                      key={`${course}${i}`}
-                      value={fullCourseName}
-                    >{`${course} - ${fullCourseName}`}</MenuItem>
-                  );
-                }
               }
             );
 
             return [listSubHeader, menuItems];
+          } else {
+            console.log("no applicable slots");
           }
         })
       : [];
-  }
+    }
 
   const complete = Object.keys(form).every(
     (key) => key === "middleName" || Boolean(form[key])
@@ -224,10 +264,7 @@ const Fillup = ({
             name="campus"
             required
           >
-            <MenuItem value="Talisay">Talisay</MenuItem>
-            {/* <MenuItem value="Fortune Towne">Fortune Towne</MenuItem> */}
-            <MenuItem value="Alijis">Alijis</MenuItem>
-            {/* <MenuItem value="Binalbagan">Binalbagan</MenuItem> */}
+            <MenuItem value="Binalbagan">Binalbagan</MenuItem>
           </Select>
         </Grid>
         <Grid item xs={12} md={4}>
@@ -244,16 +281,7 @@ const Fillup = ({
               name="examCenter"
               disabled
             >
-              <MenuItem value="Talisay">Talisay</MenuItem>
-              <MenuItem value="Fortune Towne" disabled>
-                Fortune Towne
-              </MenuItem>
-              <MenuItem value="Alijis" disabled>
-                Alijis
-              </MenuItem>
-              <MenuItem value="Binalbagan" disabled>
-                Binalbagan
-              </MenuItem>
+              <MenuItem value="Binalbagan">Binalbagan</MenuItem>
             </Select>
             <FormHelperText>
               Campus where you wish to take the exam.
